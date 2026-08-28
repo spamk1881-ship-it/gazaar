@@ -959,7 +959,8 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
             } else {
                 animalInfos.unshift({ title, category, content, img: imgUrl });
             }
-            localStorage.setItem('elgazzar_animal_infos', JSON.stringify(animalInfos));
+       localStorage.setItem('elgazzar_animal_infos', JSON.stringify(animalInfos));
+           saveAnimalInfosToCloud();
             closeAnimalInfoModal();
             renderAnimalInfos();
             showToast("تم حفظ المعلومة بنجاح 📖");
@@ -969,6 +970,7 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
             if(confirm("هل تريد حذف هذه المعلومة؟")) {
                 animalInfos.splice(index, 1);
                 localStorage.setItem('elgazzar_animal_infos', JSON.stringify(animalInfos));
+               saveAnimalInfosToCloud();
                 renderAnimalInfos();
                 showToast("تم الحذف");
             }
