@@ -390,6 +390,53 @@
 const API_KEY = "$2a$10$2c/DUQivZwNvSVYRQGnlEuElNizwxbVdOLn9eo6M9BiLikV23lYWG";
 const BIN_ID = "6a78f418f5f4af5e29ffdb11";       // سحابة المنتجات القديمة
 const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات الجديدة
+        // دالة جلب موسوعة المعلومات من السحابة
+        async function fetchAnimalInfosFromCloud() {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${INFO_BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                const data = await response.json();
+                if (data && data.record) {
+                    animalInfos = data.record.infos || [];
+                    renderAnimalInfos();
+                }
+            } catch (error) {
+                console.error("خطأ في جلب موسوعة المعلومات من السحابة:", error);
+                const localData = localStorage.getItem('elgazzar_animal_infos');
+                if (localData) {
+                    animalInfos = JSON.parse(localData);
+                    renderAnimalInfos();
+                }
+            }
+        }
+
+        // دالة حفظ موسوعة المعلومات إلى السحابة
+        async function saveAnimalInfosToCloud() {
+            try {
+                localStorage.setItem('elgazzar_animal_infos', JSON.stringify(animalInfos));
+
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${INFO_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify({ infos: animalInfos })
+                });
+
+                if (response.ok) {
+                    showToast("تم تحديث وحفظ الموسوعة في السحابة بنجاح ☁️");
+                } else {
+                    showToast("فشل الحفظ السحابي، تم الحفظ محلياً ⚠️");
+                }
+            } catch (error) {
+                console.error("خطأ في الاتصال بالسحابة أثناء حفظ المعلومات:", error);
+                showToast("خطأ في الاتصال بالإنترنت 🌐");
+            }
+        }
 
          
         const MASTER_ADMIN_USERNAME = "elgazzar";
@@ -983,7 +1030,10 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
                 `;
             });
             container.innerHTML = html;
-        }
+       }
+        // استدعاء بيانات موسوعة المعلومات من السحابة عند تحميل الصفحة
+fetchAnimalInfosFromCloud();
+
     </script>
 </body>
 </html>
