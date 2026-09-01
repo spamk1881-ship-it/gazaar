@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+   <script src="https://accounts.google.com/gsi/client" async defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="img1.jpg">
@@ -474,8 +475,9 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
         let currentFilterCategory = 'all';
         let currentInfoCategory = 'all';
         let products = [];
-
         let siteVisits = Number(localStorage.getItem('elgazzar_site_visits')) || 120;
+    
+
         if (!sessionStorage.getItem('visited_session')) {
             siteVisits++;
             localStorage.setItem('elgazzar_site_visits', siteVisits);
