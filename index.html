@@ -670,15 +670,15 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
             document.getElementById('navHome').classList.add('active');
             document.getElementById('navInfo').classList.remove('active');
         }
+function showInfoSection() {
+    document.getElementById('mainContentSection').style.display = 'none';
+    document.getElementById('infoPageSection').style.display = 'block';
+    document.getElementById('navInfo').classList.add('active');
+    document.getElementById('navHome').classList.remove('active');
+    
+    fetchAnimalInfosFromCloud();
+}
 
-        function showInfoSection() {
-            document.getElementById('mainContentSection').style.display = 'none';
-            document.getElementById('infoPageSection').classList.add('active');
-            document.getElementById('navInfo').classList.add('active');
-            document.getElementById('navHome').classList.remove('active');
-            renderAnimalInfos();
-            renderCloudProductsInInfo();
-        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -1058,7 +1058,30 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
             container.innerHTML = html;
        }
         // استدعاء بيانات موسوعة المعلومات من السحابة عند تحميل الصفحة
-fetchAnimalInfosFromCloud();
+function checkAndResetDailyVisitor() {
+    const today = new Date().toDateString(); // بيجيب تاريخ اليوم الحالي (مثلاً: Wed Sep 02 2026)
+    const savedDate = localStorage.getItem('elgazzar_visitor_date');
+    
+    // لو التاريخ المتخزن مش هو تاريخ اليوم (معناه إننا في يوم جديد)
+    if (savedDate !== today) {
+        localStorage.setItem('elgazzar_visitor_date', today);
+        localStorage.setItem('elgazzar_daily_visits', '0'); // تصفير العداد
+    }
+    
+    // قراءة العداد وزيادته بواقع زيارة جديدة
+    let visits = parseInt(localStorage.getItem('elgazzar_daily_visits') || '0');
+    visits++;
+    localStorage.setItem('elgazzar_daily_visits', visits);
+    
+    // لو عندك عنصر في الhtml بيعرض العداد، حط فيه القيمة دي (غير الـ 'visitorCounterId' بالآي دي بتاع العنصر عندك)
+    const counterElement = document.getElementById('visitorCounterId');
+    if (counterElement) {
+        counterElement.innerText = visits;
+    }
+}
+
+// تشغيل الدالة أول ما الصفحة تفتح
+checkAndResetDailyVisitor();
 
     </script>
 </body>
