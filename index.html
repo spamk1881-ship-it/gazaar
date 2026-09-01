@@ -187,8 +187,28 @@
                 <i class="fa-solid fa-chart-line"></i> عدد الزيارات: <span id="visitorCountVal">0</span>
             </div>    
       </div>
-    <!-- حط الكود هنا بالظبط -->
-    <div id="loginSection" style="padding: 15px; text-align: center; background: #111; margin: 10px; border-radius: 8px;">
+
+        <ul class="sidebar-menu">
+            <a class="sidebar-item" id="sidebarAddProductItem" onclick="openAdminModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-plus-circle" style="color:var(--accent);"></i><span>إضافة منتج جديد</span></div></a>
+            <a class="sidebar-item" id="sidebarAddInfoItem" onclick="openAnimalInfoModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i><span>إضافة معلومات حيوان</span></div></a>
+            
+            <div class="sidebar-category-header">الأقسام الأساسية</div>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('all'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-border-all"></i><span>عرض الكل (المنتجات)</span></div></a>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('السحالي'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-dragon"></i><span>السحالي</span></div></a>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('الثعابين'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-staff-snake"></i><span>الثعابين</span></div></a>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('حيوانات برية'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-paw"></i><span>حيوانات برية</span></div></a>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('المفصلية'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-spider"></i><span>المفصلية</span></div></a>
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('التجهيزات'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-box-archive"></i><span>التجهيزات</span></div></a
+            <a class="sidebar-item" onclick="showMainSection(); filterCategory('المغذيات والمستلزمات'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-bowl-food" style="color:var(--accent);"></i><span>المغذيات والمستلزمات</span></div></a>
+            
+            <div class="sidebar-category-header">معلومات وقواميس</div>
+            <a class="sidebar-item" onclick="showInfoSection(); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-book-open" style="color:var(--accent);"></i><span>معلومات الحيوانات</span></div></a>
+            
+            <div class="sidebar-category-header">الحساب</div>
+            <a class="sidebar-item" id="sidebarAuthItem" onclick="handleAuthBtnClick()"><div class="sidebar-item-content"><i class="fa-solid fa-user" style="color:var(--primary);"></i><span id="sidebarAuthText">تسجيل الدخول</span></div></a>
+            
+            <a class="sidebar-item" id="sidebarChangePassItem" onclick="openChangePasswordModal(); toggleSidebar();" style="display:none; border-top: 1px solid var(--border); margin-top: 15px;"><div class="sidebar-item-content"><i class="fa-solid fa-key" style="color:var(--accent);"></i><span>تغيير كلمة المرور</span></div></a>
+       <div id="loginSection" style="padding: 15px; text-align: center; background: #111; margin: 10px; border-radius: 8px;">
         <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا..." style="width: 90%; padding: 8px; margin-bottom: 8px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff;">
         <br>
         <button onclick="simpleLogin()" style="width: 95%; padding: 8px; background: #ff4d4d; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">دخول</button>
@@ -217,27 +237,6 @@
         <button onclick="simpleLogout()" style="padding: 6px 15px; background: #ff4d4d; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل خروج</button>
     </div>
 
-        <ul class="sidebar-menu">
-            <a class="sidebar-item" id="sidebarAddProductItem" onclick="openAdminModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-plus-circle" style="color:var(--accent);"></i><span>إضافة منتج جديد</span></div></a>
-            <a class="sidebar-item" id="sidebarAddInfoItem" onclick="openAnimalInfoModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i><span>إضافة معلومات حيوان</span></div></a>
-            
-            <div class="sidebar-category-header">الأقسام الأساسية</div>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('all'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-border-all"></i><span>عرض الكل (المنتجات)</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('السحالي'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-dragon"></i><span>السحالي</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('الثعابين'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-staff-snake"></i><span>الثعابين</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('حيوانات برية'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-paw"></i><span>حيوانات برية</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('المفصلية'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-spider"></i><span>المفصلية</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('التجهيزات'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-box-archive"></i><span>التجهيزات</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('اكسسوارات'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-gem"></i><span>اكسسوارات</span></div></a>
-            <a class="sidebar-item" onclick="showMainSection(); filterCategory('المغذيات والمستلزمات'); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-bowl-food" style="color:var(--accent);"></i><span>المغذيات والمستلزمات</span></div></a>
-            
-            <div class="sidebar-category-header">معلومات وقواميس</div>
-            <a class="sidebar-item" onclick="showInfoSection(); toggleSidebar();"><div class="sidebar-item-content"><i class="fa-solid fa-book-open" style="color:var(--accent);"></i><span>معلومات الحيوانات</span></div></a>
-            
-            <div class="sidebar-category-header">الحساب</div>
-            <a class="sidebar-item" id="sidebarAuthItem" onclick="handleAuthBtnClick()"><div class="sidebar-item-content"><i class="fa-solid fa-user" style="color:var(--primary);"></i><span id="sidebarAuthText">تسجيل الدخول</span></div></a>
-            
-            <a class="sidebar-item" id="sidebarChangePassItem" onclick="openChangePasswordModal(); toggleSidebar();" style="display:none; border-top: 1px solid var(--border); margin-top: 15px;"><div class="sidebar-item-content"><i class="fa-solid fa-key" style="color:var(--accent);"></i><span>تغيير كلمة المرور</span></div></a>
         </ul>
 
         <div class="sidebar-socials">
@@ -340,7 +339,6 @@
         
         <div class="info-categories-bar" id="infoCategoriesBar">
             <div class="info-cat-btn active" onclick="filterInfoCategory('all')">الكل</div>
-            <div class="info-cat-btn" onclick="filterInfoCategory('عام')">عام</div>
             <div class="info-cat-btn" onclick="filterInfoCategory('السحالي')">السحالي</div>
             <div class="info-cat-btn" onclick="filterInfoCategory('الثعابين')">الثعابين</div>
             <div class="info-cat-btn" onclick="filterInfoCategory('حيوانات برية')">حيوانات برية</div>
