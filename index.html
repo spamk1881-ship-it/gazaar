@@ -185,8 +185,38 @@
             <div style="font-size:0.7rem; color:var(--primary);" id="sidebarUserEmail">تسجيل الدخول مطلوب</div>
             <div id="visitorCounterBox" style="display:none; margin-top:6px; font-size:0.75rem; background:rgba(46,196,182,0.1); border:1px dashed var(--primary); padding:3px 8px; border-radius:6px; color:var(--primary);">
                 <i class="fa-solid fa-chart-line"></i> عدد الزيارات: <span id="visitorCountVal">0</span>
-            </div>
+            </div>    
+      </div>
+    <!-- حط الكود هنا بالظبط -->
+    <div id="loginSection" style="padding: 15px; text-align: center; background: #111; margin: 10px; border-radius: 8px;">
+        <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا..." style="width: 90%; padding: 8px; margin-bottom: 8px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff;">
+        <br>
+        <button onclick="simpleLogin()" style="width: 95%; padding: 8px; background: #ff4d4d; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">دخول</button>
+        
+        <div style="margin: 10px 0; color: #888; font-size: 14px;">أو</div>
+
+        <!-- زر جوجل -->
+        <div id="g_id_onload"
+             data-client_id="حط_الكلاينت_آي دي_هنا.apps.googleusercontent.com"
+             data-callback="handleGoogleLogin"
+             data-auto_prompt="false">
         </div>
+        <div class="g_id_signin" 
+             data-type="standard" 
+             data-shape="rectangular" 
+             data-theme="outline" 
+             data-text="signin_with" 
+             data-size="large" 
+             data-locale="ar">
+        </div>
+    </div>
+
+    <!-- رسالة الترحيب -->
+    <div id="welcomeSection" style="display: none; padding: 15px; text-align: center; background: #111; margin: 10px; border-radius: 8px;">
+        <h3 id="welcomeMsg" style="margin-bottom: 10px; font-size: 16px; color: #fff;"></h3>
+        <button onclick="simpleLogout()" style="padding: 6px 15px; background: #ff4d4d; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل خروج</button>
+    </div>
+
         <ul class="sidebar-menu">
             <a class="sidebar-item" id="sidebarAddProductItem" onclick="openAdminModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-plus-circle" style="color:var(--accent);"></i><span>إضافة منتج جديد</span></div></a>
             <a class="sidebar-item" id="sidebarAddInfoItem" onclick="openAnimalInfoModal(); toggleSidebar();" style="display:none;"><div class="sidebar-item-content"><i class="fa-solid fa-circle-info" style="color:var(--primary);"></i><span>إضافة معلومات حيوان</span></div></a>
@@ -258,7 +288,7 @@
                         <option value="حيوانات برية">حيوانات برية</option>
                         <option value="المفصلية">المفصلية</option>
                         <option value="التجهيزات">التجهيزات</option>
-                        <option value="اكسسوارات">اكسسوارات</option>
+                        
                         <option value="المغذيات والمستلزمات">المغذيات والمستلزمات</option>
                     </select>
                 </div>
@@ -278,7 +308,6 @@
                 <div class="form-group"><label>اسم الحيوان</label><input type="text" id="infoTitle" required></div>
                 <div class="form-group"><label>القسم في المعلومات</label>
                     <select id="infoCategory">
-                        <option value="عام">عام</option>
                         <option value="السحالي">السحالي</option>
                         <option value="الثعابين">الثعابين</option>
                         <option value="حيوانات برية">حيوانات برية</option>
@@ -534,12 +563,10 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
             try {
                 let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { headers: { 'X-Master-Key': API_KEY } });
                 let data = await response.json();
-                if(data.record && data.record.length > 0) products = data.record;
-                renderProducts();
-                renderCloudProductsInInfo();
+                if(data.record && data.record.length > 0) products = data.record;                                          
             } catch (err) { 
                 renderProducts(); 
-                renderCloudProductsInInfo();
+                
             }
         }
 
@@ -550,8 +577,7 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
                     headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
                     body: JSON.stringify(products)
                 });
-                showToast("تم التحديث أونلاين بنجاح ☁️");
-                renderCloudProductsInInfo();
+                showToast("تم التحديث أونلاين بنجاح ☁️");               
             } catch (err) { showToast("فشل الحفظ أونلاين"); }
         }
 
