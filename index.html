@@ -1113,7 +1113,40 @@ function checkAndResetDailyVisitor() {
 
 // تشغيل الدالة أول ما الصفحة تفتح
 checkAndResetDailyVisitor();
+    <!-- كود تسجيل دخول جوجل -->
+    <script>
+      window.onload = function () {
+          google.accounts.id.initialize({
+              client_id: '308080772126-mhjn10qnr4hpqinkmb28bhrv2m1uk343.apps.googleusercontent.com',
+              callback: handleCredentialResponse
+          });
+          const googleBtn = document.getElementById('buttonDiv');
+          if (googleBtn) {
+              google.accounts.id.renderButton(googleBtn, { theme: "outline", size: "large" });
+          }
+      };
 
+      function handleCredentialResponse(response) {
+          const responsePayload = parseJwt(response.credential);
+          localStorage.setItem('elazzar_user', JSON.stringify({
+              name: responsePayload.name,
+              email: responsePayload.email,
+              picture: responsePayload.picture
+          }));
+          window.location.reload(); 
+      }
+
+      function parseJwt(token) {
+          var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+              return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          return JSON.parse(jsonPayload);
+      }
     </script>
+</body>
+
+    
 </body>
 </html>
