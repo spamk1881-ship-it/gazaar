@@ -476,7 +476,36 @@ const INFO_BIN_ID = "6a9163d3f5f4af5e294d6021"; // سحابة المعلومات
         let currentInfoCategory = 'all';
         let products = [];
         let siteVisits = Number(localStorage.getItem('elgazzar_site_visits')) || 120;
-    
+    // دالة استقبال تسجيل الدخول من جوجل
+function handleGoogleLogin(response) {
+    try {
+        const base64Url = response.credential.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        const userData = JSON.parse(jsonPayload);
+        
+        currentUser = {
+            name: userData.name,
+            email: userData.email,
+            picture: userData.picture
+        };
+        
+        localStorage.setItem('elgazzar_current_user', JSON.stringify(currentUser));
+        
+        if (typeof updateUI === 'function') {
+            updateUI();
+        } else {
+            location.reload();
+        }
+        
+    } catch (error) {
+        console.error("خطأ في معالجة تسجيل الدخول:", error);
+    }
+}
+
 
         if (!sessionStorage.getItem('visited_session')) {
             siteVisits++;
